@@ -1,0 +1,67 @@
+services:
+
+#  eureka:
+#    build:
+#      context: .
+#    container_name: eureka
+#    environment:
+#      - spring.application.name=eureka
+#      - server.port=8761
+#      - eureka.client.register-with-eureka=false
+#      - eureka.client.fetch-registry=false
+#    ports:
+#      - "8761:8761"
+#    networks:
+#      - public
+
+  user-service:
+    build:
+      context: C:\Users\Yovel\IdeaProjects\UserService
+      dockerfile: Dockerfile
+    container_name: user-service
+    environment:
+      - spring.application.name=user-service
+      - server.port=8085
+      - spring.datasource.url=jdbc:mysql://host.docker.internal:3306/user_ms
+      - spring.datasource.username=root
+      - spring.datasource.password=pass123
+      - server.shutdown=graceful
+      - spring.jpa.hibernate.ddl-auto=update
+      - spring.jpa.show-sql=true
+      - eureka.client.register-with-eureka=true
+      - eureka.client.fetch-registry=true
+      - eureka.client.service-url.defaultZone=http://host.docker.internal:8761/eureka
+    ports:
+      - "8085:8085"
+    networks:
+      - public
+
+  product-service:
+    build:
+      context: C:\Users\Yovel\Desktop\ProductMS
+      dockerfile: Dockerfile
+    container_name: product-service
+    environment:
+      - spring.application.name=product-service
+      - server.port=8081
+      - spring.datasource.url=jdbc:mysql://host.docker.internal:3306/product_ms
+      - spring.datasource.username=root
+      - spring.datasource.password=pass123
+      - server.shutdown=graceful
+      - spring.jpa.hibernate.ddl-auto=update
+      - spring.jpa.show-sql=true
+      - eureka.client.register-with-eureka=true
+      - eureka.client.fetch-registry=true
+      - eureka.client.service-url.defaultZone=http://host.docker.internal:8761/eureka
+    ports:
+      - "8081:8081"
+    networks:
+      - public
+    depends_on:
+      user-service:
+        condition: service_started
+
+networks:
+  public:
+    driver: bridge
+
