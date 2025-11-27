@@ -5,10 +5,10 @@ FROM amazoncorretto:17.0.12-al2023-headful
 WORKDIR /app
 
 # Copy the JAR file to the container
-COPY target/ProductMS-0.0.1-SNAPSHOT.jar /app/ProductMS-0.0.1-SNAPSHOT.jar
+COPY target/*.jar product-service.jar
 
 # Expose the port on which the application will run
-EXPOSE 8081
+EXPOSE 8082
 
 # Define the command to run the JAR file
-CMD ["java", "-jar", "/app/ProductMS-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "product-service.jar"]
