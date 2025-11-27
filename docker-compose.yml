@@ -71,3 +71,17 @@ services:
     depends_on:
       - mysql
       - eureka-server
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+    depends_on:
+      - eureka-server
+      - user-service
+      - product-service
+      - order-service
+      - payment-service
