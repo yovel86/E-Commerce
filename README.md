@@ -70,15 +70,15 @@ This project provided hands-on experience with building an e-commerce platform u
 ### Installation
 1. Clone the repository:
     ```sh
-    https://github.com/yovel86/E-Commerce.git
+   git clone https://github.com/yovel86/E-Commerce.git
     ```
 2. Navigate to the project directory:
     ```sh
     cd E-Commerce
     ```
-3. Install the dependencies:
+3. Compile & Package into JAR:
     ```sh
-    mvn clean install
+    mvn clean package -DskipTests
     ```
 
 ### Configuration
